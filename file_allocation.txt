@@ -1,0 +1,69 @@
+File Allocation Methods
+File allocation methods define how data is organized and stored on the disk. The choice of allocation method impacts storage efficiency, file retrieval speed, and fragmentation. The three main methods are Contiguous, Linked, and Indexed Allocation.
+---
+1. Contiguous Allocation
+Description:
+Files are stored in a sequence of adjacent blocks.
+The starting block and length of the file are stored in the file table.
+Suitable for scenarios where files are accessed sequentially.
+
+Advantages:
+Simple implementation.
+Excellent for sequential and random access.
+
+Disadvantages:
+Leads to external fragmentation.
+Requires knowing the file size in advance.
+Difficult to expand files dynamically.
+
+Diagram:
+[Disk Blocks]
+[File A: Blocks 0-2][File B: Blocks 3-5][File C: Blocks 6-8]
+
+Each file occupies a contiguous range of blocks.
+---
+
+2. Linked Allocation
+Description:
+Files are stored in non-contiguous blocks.
+Each block contains data and a pointer to the next block.
+A NULL pointer signifies the end of the file.
+
+Advantages:
+No external fragmentation.
+Files can grow dynamically.
+
+Disadvantages:
+Sequential access only; random access is inefficient.
+Overhead due to storing pointers.
+Susceptible to corruption if pointers are lost.
+
+Diagram:
+[File A: Block 1 -> Block 4 -> Block 8 -> NULL]
+[File B: Block 2 -> Block 5 -> Block 9 -> NULL]
+
+Each block stores a pointer to the next.
+---
+
+3. Indexed Allocation
+Description:
+A separate index block is used to store pointers to all the blocks of a file.
+The file table stores the address of the index block.
+Suitable for large files requiring random access.
+
+Advantages:
+Allows direct access to any block.
+Eliminates the need for pointers in each block.
+
+Disadvantages:
+Additional storage is required for the index block.
+Can be inefficient for small files due to index overhead.
+
+Diagram:
+[Index Block: Block 0]
+[File A: Blocks 2, 5, 8, 12]
+[Disk Blocks]
+[Block 2: Data][Block 5: Data][Block 8: Data][Block 12: Data]
+
+The index block points to scattered file blocks.
+---
